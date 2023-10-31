@@ -5121,11 +5121,17 @@
         for (let i = 0; i < 200; i) {
             await sleep(50);
             
-            
             let start = sentence.length-4;
             let state = sentence.slice(start, sentence.length).toString();
             
+            if (!(state in brain)){
+                sentence += " ";
+                sentence += choices[Math.floor(Math.random() * choices.length)];
+                continue;
+            }
+
             let prob = brain[state];
+
             let outstring = "";
             for (let key in prob){
                 for (let j = 0; j < prob[key]; j++){
